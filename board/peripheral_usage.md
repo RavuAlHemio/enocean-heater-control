@@ -1,23 +1,19 @@
-| role               | peripheral     | pin  | mux setting | notes  |
-| ------------------ | -------------- | ---- | ----------- | ------ |
-| OSC32K IN          | n/a            | PA00 | n/a         |        |
-| OSC32K OUT         | n/a            | PA01 | n/a         |        |
-| blocked for OSC32K | n/a, GND       | PA02 | n/a         |        |
-| blocked for OSC32K | n/a, GND       | PA03 | n/a         |        |
-| debug UART µC-Tx   | SERCOM0/PAD[0] | PA04 | D           | TXPO=0 |
-| debug UART µC-Rx   | SERCOM0/PAD[1] | PA05 | D           | RXPO=1 |
-| OLED ~CS           | PORT           | PA06 | n/a         |        |
-| OLED D/~C          | PORT           | PA07 | n/a         |        |
-| OLED EN            | PORT           | PA08 | n/a         |        |
-| keypad ~CS         | PORT           | PA09 | n/a         |        |
-| flash ~CS          | PORT           | PA10 | n/a         |        |
-| flash ~write-prot  | PORT           | PA11 | n/a         |        |
-| SPI COPI           | SERCOM2/PAD[0] | PA12 | C           | DOPO=0 |
-| SPI CIPO           | SERCOM2/PAD[1] | PA13 | C           | DIPO=1 |
-| SPI SCK            | SERCOM2/PAD[2] | PA14 | C           | DOPO=0 |
-| EnOcean UART µC-Tx | SERCOM1/PAD[0] | PA16 | C           | TXPO=0 |
-| EnOcean UART µC-Rx | SERCOM1/PAD[1] | PA17 | C           | RXPO=1 |
-| debug SWCLK        | n/a            | PA30 | n/a         |        |
-| debug SWDIO        | n/a            | PA31 | n/a         |        |
-| blocked for OSC32K | n/a, GND       | PB02 | n/a         |        |
-| blocked for OSC32K | n/a, GND       | PB03 | n/a         |        |
+# STM32G0B0KE
+
+| role               | peripheral | pin  | mux setting | notes  |
+| ------------------ | ---------- | ---- | ----------- | ------ |
+| debug UART µC-Tx   | USART1_TX  | PA09 | AF1         |        |
+| debug UART µC-Rx   | USART1_RX  | PA10 | AF1         |        |
+| OLED ~CS           | GPIO       | PA04 | n/a         |        |
+| OLED D/~C          | GPIO       | PB02 | n/a         |        |
+| OLED EN            | GPIO       | PA08 | n/a         |        |
+| keypad ~CS         | GPIO       | PA11 | n/a         |        |
+| flash ~CS          | GPIO       | PA12 | n/a         |        |
+| flash ~write-prot  | GPIO       | PA15 | n/a         |        |
+| SPI COPI           | SPI1_MOSI  | PB05 | AF0         |        |
+| SPI CIPO           | SPI1_MISO  | PB04 | AF0         |        |
+| SPI SCK            | SPI1_SCK   | PB03 | AF0         |        |
+| EnOcean UART µC-Tx | USART2_TX  | PA02 | AF1         |        |
+| EnOcean UART µC-Rx | USART2_RX  | PA03 | AF1         |        |
+| debug SWCLK        | debug      | PA14 | AF0         |        |
+| debug SWDIO        | debug      | PA13 | AF0         |        |

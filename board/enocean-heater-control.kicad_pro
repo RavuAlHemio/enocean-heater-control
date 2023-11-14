@@ -56,8 +56,6 @@
         }
       ],
       "drc_exclusions": [
-        "clearance|138417971|112718686|270e4386-4eb6-425b-abe9-630c2900e6d9|d5fc5435-eb24-4c3b-be75-ee52b0694c37",
-        "clearance|167266447|65020000|3342ab75-ecd5-4bc8-b6f3-9210c7ccd8fb|d5fc5435-eb24-4c3b-be75-ee52b0694c37",
         "silk_edge_clearance|103620000|119000000|f7d3ea33-49cf-478d-9092-8c071f9e323f|bfd67d3b-1239-4333-bf9a-3cb4c85558dd",
         "silk_edge_clearance|113020000|119000000|f7d3ea33-49cf-478d-9092-8c071f9e323f|aa82e672-343a-4f12-9cb6-556c530fb736"
       ],
@@ -517,16 +515,16 @@
       "Power Supply"
     ],
     [
-      "3e07dc11-3721-40d9-b0d4-7cbd77bafa21",
-      "Clock"
-    ],
-    [
       "cbeaf0f4-54d1-4064-b340-f318f51347e4",
       "Debug"
     ],
     [
       "3c0f3d30-d515-4545-a3cd-30bfda674a40",
       "Reset"
+    ],
+    [
+      "ffec0bb5-2308-4547-a917-e412ae73decd",
+      "Clock"
     ]
   ],
   "text_variables": {}

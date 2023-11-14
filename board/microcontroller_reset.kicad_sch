@@ -210,10 +210,6 @@
     (uuid fc0a206a-c90d-498e-a106-889052f504e2)
   )
 
-  (text "DS § 51.4:" (at 45.72 41.91 0)
-    (effects (font (size 1.27 1.27)) (justify left bottom))
-    (uuid 325ef33b-6bac-4d7c-8cbf-259f450adf2c)
-  )
   (text "\"DS\" is defined one hierarchical layer above" (at 15.24 17.78 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid d7fbd77c-ec8d-4d4f-9032-a4a10cb2a5a0)
