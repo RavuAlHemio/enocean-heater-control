@@ -1,0 +1,8 @@
+# generated during build process
+# => by svdtools patch
+stm32g0b0_patched.svd
+# => by svd2rust and form
+build.rs
+device.x
+lib.rs
+src/

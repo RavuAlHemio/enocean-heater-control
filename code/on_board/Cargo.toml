@@ -1,0 +1,6 @@
+[workspace]
+resolver = "2"
+members = [
+    "enocean-heater-control",
+    "stm32g0b0",
+]

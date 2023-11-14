@@ -1,0 +1,9 @@
+[build]
+# STM32G0B0 (ARM Cortex-M0+):
+target = "thumbv6m-none-eabi"
+
+[target.'cfg(all(target_arch = "arm", target_os = "none"))']
+# link.x is contained in crate cortex-m-rt
+rustflags = [
+    "-C", "link-arg=-Tlink.x",
+]

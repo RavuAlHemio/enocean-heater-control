@@ -1,0 +1,274 @@
+_svd: "STM32G0B0.svd"
+
+# issue with some timers:
+# * TIM1.SMCR.SMS1 (bottom 3 bits) defines a bitfield that includes SMS3 (4th bit)
+#   this means some of the enum values don't fit
+#   same for TIM3 and TIM15
+# * TIM14.CCMR1_Output.OC1M1 (bottom 3 bits) defines a bitfield that includes OC1M2 (4th bit)
+#   same issue as above
+#   same for TIM16
+# unfortunately, clearing the fields is the only way to prevent svdtools from choking on this
+# (otherwise, it throws an error before applying the modifications)
+#
+# we'll fix up the timers if we ever use them
+_clear_fields:
+  - TIM1
+  - TIM3
+  - TIM14
+  - TIM15
+  - TIM16
+
+FLASH:
+  # missing enums
+  ACR:
+    LATENCY:
+      Zero: [0, "Zero wait states when accessing flash memory."]
+      One: [1, "One wait state when accessing flash memory."]
+      Two: [2, "Two wait states when accessing flash memory."]
+
+"GPIO*":
+  # missing enums
+  MODER:
+    "MODE*":
+      Input: [0, "The pin is used as an input."]
+      Output: [1, "The pin is used as a general-purpose output."]
+      AltFunc: [2, "The pin is used for an alternate function, chosen in AFRL/AFRH."]
+      Analog: [3, "The pin is used for analog input/output."]
+  PUPDR:
+    "PUPDR*":
+      NoPull: [0, "No pull-up, no pull-down."]
+      PullUp: [1, "Pull-up."]
+      PullDown: [2, "Pull-down."]
+  "AFR[LH]":
+    "AFSEL*":
+      AltFunc0: [0, "Selects alternate function 0 on this pin. (This only has a tangible effect if the bits in MODER corresponding to this pin are set to 0b10.)"]
+      AltFunc1: [1, "Selects alternate function 1 on this pin. (This only has a tangible effect if the bits in MODER corresponding to this pin are set to 0b10.)"]
+      AltFunc2: [2, "Selects alternate function 2 on this pin. (This only has a tangible effect if the bits in MODER corresponding to this pin are set to 0b10.)"]
+      AltFunc3: [3, "Selects alternate function 3 on this pin. (This only has a tangible effect if the bits in MODER corresponding to this pin are set to 0b10.)"]
+      AltFunc4: [4, "Selects alternate function 4 on this pin. (This only has a tangible effect if the bits in MODER corresponding to this pin are set to 0b10.)"]
+      AltFunc5: [5, "Selects alternate function 5 on this pin. (This only has a tangible effect if the bits in MODER corresponding to this pin are set to 0b10.)"]
+      AltFunc6: [6, "Selects alternate function 6 on this pin. (This only has a tangible effect if the bits in MODER corresponding to this pin are set to 0b10.)"]
+      AltFunc7: [7, "Selects alternate function 7 on this pin. (This only has a tangible effect if the bits in MODER corresponding to this pin are set to 0b10.)"]
+
+RCC:
+  # rename registers to match documentation
+  _modify:
+    PLLSYSCFGR:
+      name: PLLCFGR
+  # missing enums
+  PLLCFGR:
+    PLLSRC:
+      NoClock: [0, "No clock is used as the PLL source. This allows saving power if the PLL is not used."]
+      # 1: reserved
+      HSI16: [2, "Uses HSI16 (internal 16 MHz oscillator) as the PLL source."]
+      HSE: [3, "Uses HSE (external oscillator) as the PLL source."]
+    PLLM:
+      Div1: [0, "Initial division factor 1."]
+      Div2: [1, "Initial division factor 2."]
+      Div3: [2, "Initial division factor 3."]
+      Div4: [3, "Initial division factor 4."]
+      Div5: [4, "Initial division factor 5."]
+      Div6: [5, "Initial division factor 6."]
+      Div7: [6, "Initial division factor 7."]
+      Div8: [7, "Initial division factor 8."]
+    PLLN:
+      Mul8: [8, "Initial multiplication factor 8."]
+      Mul9: [9, "Initial multiplication factor 9."]
+      Mul10: [10, "Initial multiplication factor 10."]
+      Mul11: [11, "Initial multiplication factor 11."]
+      Mul12: [12, "Initial multiplication factor 12."]
+      Mul13: [13, "Initial multiplication factor 13."]
+      Mul14: [14, "Initial multiplication factor 14."]
+      Mul15: [15, "Initial multiplication factor 15."]
+      Mul16: [16, "Initial multiplication factor 16."]
+      Mul17: [17, "Initial multiplication factor 17."]
+      Mul18: [18, "Initial multiplication factor 18."]
+      Mul19: [19, "Initial multiplication factor 19."]
+      Mul20: [20, "Initial multiplication factor 20."]
+      Mul21: [21, "Initial multiplication factor 21."]
+      Mul22: [22, "Initial multiplication factor 22."]
+      Mul23: [23, "Initial multiplication factor 23."]
+      Mul24: [24, "Initial multiplication factor 24."]
+      Mul25: [25, "Initial multiplication factor 25."]
+      Mul26: [26, "Initial multiplication factor 26."]
+      Mul27: [27, "Initial multiplication factor 27."]
+      Mul28: [28, "Initial multiplication factor 28."]
+      Mul29: [29, "Initial multiplication factor 29."]
+      Mul30: [30, "Initial multiplication factor 30."]
+      Mul31: [31, "Initial multiplication factor 31."]
+      Mul32: [32, "Initial multiplication factor 32."]
+      Mul33: [33, "Initial multiplication factor 33."]
+      Mul34: [34, "Initial multiplication factor 34."]
+      Mul35: [35, "Initial multiplication factor 35."]
+      Mul36: [36, "Initial multiplication factor 36."]
+      Mul37: [37, "Initial multiplication factor 37."]
+      Mul38: [38, "Initial multiplication factor 38."]
+      Mul39: [39, "Initial multiplication factor 39."]
+      Mul40: [40, "Initial multiplication factor 40."]
+      Mul41: [41, "Initial multiplication factor 41."]
+      Mul42: [42, "Initial multiplication factor 42."]
+      Mul43: [43, "Initial multiplication factor 43."]
+      Mul44: [44, "Initial multiplication factor 44."]
+      Mul45: [45, "Initial multiplication factor 45."]
+      Mul46: [46, "Initial multiplication factor 46."]
+      Mul47: [47, "Initial multiplication factor 47."]
+      Mul48: [48, "Initial multiplication factor 48."]
+      Mul49: [49, "Initial multiplication factor 49."]
+      Mul50: [50, "Initial multiplication factor 50."]
+      Mul51: [51, "Initial multiplication factor 51."]
+      Mul52: [52, "Initial multiplication factor 52."]
+      Mul53: [53, "Initial multiplication factor 53."]
+      Mul54: [54, "Initial multiplication factor 54."]
+      Mul55: [55, "Initial multiplication factor 55."]
+      Mul56: [56, "Initial multiplication factor 56."]
+      Mul57: [57, "Initial multiplication factor 57."]
+      Mul58: [58, "Initial multiplication factor 58."]
+      Mul59: [59, "Initial multiplication factor 59."]
+      Mul60: [60, "Initial multiplication factor 60."]
+      Mul61: [61, "Initial multiplication factor 61."]
+      Mul62: [62, "Initial multiplication factor 62."]
+      Mul63: [63, "Initial multiplication factor 63."]
+      Mul64: [64, "Initial multiplication factor 64."]
+      Mul65: [65, "Initial multiplication factor 65."]
+      Mul66: [66, "Initial multiplication factor 66."]
+      Mul67: [67, "Initial multiplication factor 67."]
+      Mul68: [68, "Initial multiplication factor 68."]
+      Mul69: [69, "Initial multiplication factor 69."]
+      Mul70: [70, "Initial multiplication factor 70."]
+      Mul71: [71, "Initial multiplication factor 71."]
+      Mul72: [72, "Initial multiplication factor 72."]
+      Mul73: [73, "Initial multiplication factor 73."]
+      Mul74: [74, "Initial multiplication factor 74."]
+      Mul75: [75, "Initial multiplication factor 75."]
+      Mul76: [76, "Initial multiplication factor 76."]
+      Mul77: [77, "Initial multiplication factor 77."]
+      Mul78: [78, "Initial multiplication factor 78."]
+      Mul79: [79, "Initial multiplication factor 79."]
+      Mul80: [80, "Initial multiplication factor 80."]
+      Mul81: [81, "Initial multiplication factor 81."]
+      Mul82: [82, "Initial multiplication factor 82."]
+      Mul83: [83, "Initial multiplication factor 83."]
+      Mul84: [84, "Initial multiplication factor 84."]
+      Mul85: [85, "Initial multiplication factor 85."]
+      Mul86: [86, "Initial multiplication factor 86."]
+    PLLP:
+      Div2: [1, "P division factor 2."]
+      Div3: [2, "P division factor 3."]
+      Div4: [3, "P division factor 4."]
+      Div5: [4, "P division factor 5."]
+      Div6: [5, "P division factor 6."]
+      Div7: [6, "P division factor 7."]
+      Div8: [7, "P division factor 8."]
+      Div9: [8, "P division factor 9."]
+      Div10: [9, "P division factor 10."]
+      Div11: [10, "P division factor 11."]
+      Div12: [11, "P division factor 12."]
+      Div13: [12, "P division factor 13."]
+      Div14: [13, "P division factor 14."]
+      Div15: [14, "P division factor 15."]
+      Div16: [15, "P division factor 16."]
+      Div17: [16, "P division factor 17."]
+      Div18: [17, "P division factor 18."]
+      Div19: [18, "P division factor 19."]
+      Div20: [19, "P division factor 20."]
+      Div21: [20, "P division factor 21."]
+      Div22: [21, "P division factor 22."]
+      Div23: [22, "P division factor 23."]
+      Div24: [23, "P division factor 24."]
+      Div25: [24, "P division factor 25."]
+      Div26: [25, "P division factor 26."]
+      Div27: [26, "P division factor 27."]
+      Div28: [27, "P division factor 28."]
+      Div29: [28, "P division factor 29."]
+      Div30: [29, "P division factor 30."]
+      Div31: [30, "P division factor 31."]
+      Div32: [31, "P division factor 32."]
+    PLLQ:
+      Div2: [1, "Q division factor 2."]
+      Div3: [2, "Q division factor 3."]
+      Div4: [3, "Q division factor 4."]
+      Div5: [4, "Q division factor 5."]
+      Div6: [5, "Q division factor 6."]
+      Div7: [6, "Q division factor 7."]
+      Div8: [7, "Q division factor 8."]
+    PLLR:
+      Div2: [1, "R division factor 2."]
+      Div3: [2, "R division factor 3."]
+      Div4: [3, "R division factor 4."]
+      Div5: [4, "R division factor 5."]
+      Div6: [5, "R division factor 6."]
+      Div7: [6, "R division factor 7."]
+      Div8: [7, "R division factor 8."]
+  CFGR:
+    SW:
+      HSISYS: [0, "SYSCLK uses HSISYS (optionally prescaled internal 16 MHz oscillator) as the clock source."]
+      HSE: [1, "SYSCLK uses HSE (external high-frequency oscillator) as the clock source."]
+      PLLRCLK: [2, "SYSCLK uses PLL output R as the clock source."]
+      LSI: [3, "SYSCLK uses LSI (internal 32 kHz oscillator) as the clock source."]
+      LSE: [4, "SYSCLK uses LSE (external low-frequency oscillator) as the clock source."]
+    SWS:
+      HSISYS: [0, "SYSCLK uses HSISYS (optionally prescaled internal 16 MHz oscillator) as the clock source."]
+      HSE: [1, "SYSCLK uses HSE (external high-frequency oscillator) as the clock source."]
+      PLLRCLK: [2, "SYSCLK uses PLL output R as the clock source."]
+      LSI: [3, "SYSCLK uses LSI (internal 32 kHz oscillator) as the clock source."]
+      LSE: [4, "SYSCLK uses LSE (external low-frequency oscillator) as the clock source."]
+
+"SPI*":
+  _strip: ["SPI_"]
+  CR1:
+    BR:
+      _replace_enum:
+        Div2: [0, "Baud rate is f_{PCLK}/2."]
+        Div4: [1, "Baud rate is f_{PCLK}/4."]
+        Div8: [2, "Baud rate is f_{PCLK}/8."]
+        Div16: [3, "Baud rate is f_{PCLK}/16."]
+        Div32: [4, "Baud rate is f_{PCLK}/32."]
+        Div64: [5, "Baud rate is f_{PCLK}/64."]
+        Div128: [6, "Baud rate is f_{PCLK}/128."]
+        Div256: [7, "Baud rate is f_{PCLK}/256."]
+  CR2:
+    DS:
+      _replace_enum:
+        Bits4: [3, "4 bits are transferred at once."]
+        Bits5: [4, "5 bits are transferred at once."]
+        Bits6: [5, "6 bits are transferred at once."]
+        Bits7: [6, "7 bits are transferred at once."]
+        Bits8: [7, "8 bits are transferred at once."]
+        Bits9: [8, "9 bits are transferred at once."]
+        Bits10: [9, "10 bits are transferred at once."]
+        Bits11: [10, "11 bits are transferred at once."]
+        Bits12: [11, "12 bits are transferred at once."]
+        Bits13: [12, "13 bits are transferred at once."]
+        Bits14: [13, "14 bits are transferred at once."]
+        Bits15: [14, "15 bits are transferred at once."]
+        Bits16: [15, "16 bits are transferred at once."]
+
+"USART*":
+  CR2:
+    STOP:
+      _replace_enum:
+        One: [0, "1 stop bit."]
+        Half: [1, "0.5 stop bits."]
+        Two: [2, "2 stop bits."]
+        OneAndAHalf: [3, "1.5 stop bits."]
+
+# USB: USB.CNTR.USBRST and SUSPEN define duplicate enum values
+USB:
+  _strip: ["USB_"]
+  CNTR:
+    USBRST:
+      _read:
+        _replace_enum:
+          NoReset: [0, "No reset is in progress."]
+          Reset: [1, "Reset is in progress."]
+      _write:
+        _replace_enum:
+          Reset: [1, "Device mode: triggers a reset of the USB core, as if a reset had been requested by the host. Host mode: triggers a reset of the target device."]
+    SUSPEN:
+      _read:
+        _replace_enum:
+          NoSuspend: [0, "L1/L2 suspend is not active."]
+          Suspend: [1, "L1/L2 suspend is active."]
+      _write:
+        _replace_enum:
+          Suspend: [1, "Enters L1/L2 suspend (inactive, low-power) mode."]
